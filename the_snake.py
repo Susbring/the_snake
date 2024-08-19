@@ -50,36 +50,45 @@ clock = pygame.time.Clock()
 
 # Тут опишите все классы игры.
 class GameObject:
+    """Базовый класс, от которого наследуются другие игровые объекты."""
     def __init__(self) -> None:
+        """Метод инициализации."""
         self.position = ((SCREEN_WIDTH // 2), (SCREEN_HEIGHT // 2))
         self.body_color = None
 
     def draw(self):
+        """Метод отрисовки объектов (пустой в GameObject)."""
         pass
 
 
 class BadFood(GameObject):
+    """Класс описывающий неправильную еду."""
     def __init__(self) -> None:
+        """Инициализация: добавление цвета и позиции."""
         super().__init__()
         self.body_color = BAD_COLOR
         self.position = ((randint(0, 31) * 20), (randint(0, 23) * 20))
 
     def draw(self):
+        """Отрисовка объекта."""
         rect = pygame.Rect(self.position, (GRID_SIZE, GRID_SIZE))
         pygame.draw.rect(screen, self.body_color, rect)
         pygame.draw.rect(screen, BORDER_COLOR, rect, 1)
 
 
 class Stone(GameObject):
+    """Класс описывает препятствия на игровом поле."""
     def __init__(self) -> None:
+        """Инициализация, добавление цвета и позиций."""
         self.pos = []
         super().__init__()
         self.body_color = STONE_COLOR
-        for _ in range(1, randint(2,16)):
+        for _ in range(1, randint(2, 16)):
             self.position = ((randint(0, 31) * 20), (randint(0, 23) * 20))
             self.pos.append(self.position)
 
     def draw(self):
+        """Отрисовка объекта."""
         for i in self.pos:
             rect = pygame.Rect(i, (GRID_SIZE, GRID_SIZE))
             pygame.draw.rect(screen, self.body_color, rect)
@@ -87,23 +96,29 @@ class Stone(GameObject):
 
 
 class Apple(GameObject):
+    """Унаследованный класс, описывает яболоко и действия с ним."""
     def __init__(self) -> None:
+        """Инициализация, добавление цвета и позиции."""
         super().__init__()
         self.body_color = APPLE_COLOR
         self.randomize_position()
 
     def draw(self):
+        """Отрисовка объекта."""
         rect = pygame.Rect(self.position, (GRID_SIZE, GRID_SIZE))
         pygame.draw.rect(screen, self.body_color, rect)
         pygame.draw.rect(screen, BORDER_COLOR, rect, 1)
 
     def randomize_position(self):
+        """Метод отвечает за случайные координаты яблока на поле."""
         self.position = ((randint(0, 31) * 20), (randint(0, 23) * 20))
 
 
 class Snake(GameObject):
-
+    """Унаследованный классб описывает змейку и ее поведение."""
     def __init__(self) -> None:
+        """Инициализация, добавление цвета, направления, следующего 
+        направления, длины."""
         super().__init__()
         self.body_color = SNAKE_COLOR
         self.direction = RIGHT
@@ -113,6 +128,7 @@ class Snake(GameObject):
         self.last = None
 
     def draw(self):
+        """Отрисовка змейки."""
         for position in self.positions[:-1]:
             rect = (pygame.Rect(position, (GRID_SIZE, GRID_SIZE)))
             pygame.draw.rect(screen, self.body_color, rect)
@@ -129,14 +145,18 @@ class Snake(GameObject):
             pygame.draw.rect(screen, BOARD_BACKGROUND_COLOR, last_rect)
 
     def update_direction(self):
+        """Обновление направления на новое."""
         if self.next_direction:
             self.direction = self.next_direction
             self.next_direction = None
 
     def get_head_position(self):
+        """Возвращает позицию головы."""
         return self.positions[0]
 
     def move(self):
+        """Реализация движения при помощи проверки координат, направления
+        с учетом сетки."""
         self.position = self.get_head_position()
 
         if self.next_direction:
@@ -180,6 +200,7 @@ class Snake(GameObject):
             self.last = self.positions.pop(-1)
 
     def reset(self):
+        """Сброс к началу после проигрыша."""
         self.length = 1
         self.positions = [((SCREEN_WIDTH // 2), (SCREEN_HEIGHT // 2))]
         self.direction = choice([RIGHT, LEFT, UP, DOWN])
@@ -187,6 +208,7 @@ class Snake(GameObject):
 
 # Функция обработки действий пользователя
 def handle_keys(game_object):
+    """Функция обработки действий пользователя."""
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -203,6 +225,7 @@ def handle_keys(game_object):
 
 
 def main():
+    """Реализация основной логики программы."""
     # Инициализация PyGame:
     pygame.init()
     apple = Apple()
@@ -246,7 +269,7 @@ def main():
                 screen.fill(BOARD_BACKGROUND_COLOR)
 
         pygame.display.update()
-    
+
 
 if __name__ == '__main__':
     main()
