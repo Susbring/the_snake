@@ -134,7 +134,6 @@ class Snake(GameObject):
         self.length = 1
         self.positions = [((SCREEN_WIDTH // 2), (SCREEN_HEIGHT // 2))]
         self.last = None
-        self.grid = GRID_SIZE
 
     def draw(self):
         """Отрисовка змейки."""
@@ -164,7 +163,8 @@ class Snake(GameObject):
         self.position = self.positions[0]
 
     def move(self):
-        """Реализация движения при помощи проверки координат, направления."""
+        """Реализация движения при помощи проверки координат, направления
+        с учетом сетки."""
         self.get_head_position()
 
         if self.next_direction:
@@ -234,6 +234,7 @@ class Snake(GameObject):
 # Функция обработки действий пользователя
 def handle_keys(game_object):
     """Функция обработки действий пользователя."""
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -292,7 +293,7 @@ def main():
             if snake.position == pos:
                 snake.reset()
                 screen.fill(BOARD_BACKGROUND_COLOR)
-        snake.grid = snake.direction_on()
+
         pygame.display.update()
 
 
