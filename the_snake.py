@@ -204,32 +204,28 @@ class Snake(GameObject):
         self.direction = choice([RIGHT, LEFT, UP, DOWN])
 
     def move_right(self):
-        """Описывает метод появления головы псоле достижения границы."""
-        """Право."""
+        """Описывает метод появления головы псоле достижения границы. Право."""
         if (self.direction == RIGHT
                 and self.position[0] == 640
                 and self.position[0] % GRID_SIZE == 0):
             self.position = (0, self.position[1])
 
     def move_left(self):
-        """Описывает метод появления головы псоле достижения границы."""
-        """Лево."""
+        """Описывает метод появления головы псоле достижения границы. Лево."""
         if (self.direction == LEFT
                 and self.position[0] == 0
                 and self.position[0] % GRID_SIZE == 0):
             self.position = (640, self.position[1])
 
     def move_up(self):
-        """Описывает метод появления головы псоле достижения границы."""
-        """Верх."""
+        """Описывает метод появления головы псоле достижения границы. Верх."""
         if (self.direction == UP
                 and self.position[1] == 0
                 and self.position[1] % GRID_SIZE == 0):
             self.position = (self.position[0], 480)
 
     def move_down(self):
-        """Описывает метод появления головы псоле достижения границы."""
-        """Низ."""
+        """Описывает метод появления головы псоле достижения границы. Низ."""
         if (self.direction == DOWN
                 and self.position[1] == 480
                 and self.position[1] % GRID_SIZE == 0):
