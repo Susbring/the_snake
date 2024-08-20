@@ -55,7 +55,6 @@ class GameObject:
 
     def __init__(self) -> None:
         """Метод инициализации."""
-
         self.position = ((SCREEN_WIDTH // 2), (SCREEN_HEIGHT // 2))
         self.body_color = None
 
@@ -68,21 +67,18 @@ class BadFood(GameObject):
 
     def __init__(self) -> None:
         """Инициализация: добавление цвета и позиции."""
-
         super().__init__()
         self.body_color = BAD_COLOR
         self.randomize_position()
 
     def draw(self):
         """Отрисовка объекта."""
-
         rect = pygame.Rect(self.position, (GRID_SIZE, GRID_SIZE))
         pygame.draw.rect(screen, self.body_color, rect)
         pygame.draw.rect(screen, BORDER_COLOR, rect, 1)
 
     def randomize_position(self):
         """Метод отвечает за случайные координаты плохой еды на поле."""
-
         self.position = ((randint(0, 31) * 20), (randint(0, 23) * 20))
 
 
@@ -91,7 +87,6 @@ class Stone(GameObject):
 
     def __init__(self) -> None:
         """Инициализация, добавление цвета и позиций."""
-
         self.pos = []
         super().__init__()
         self.body_color = STONE_COLOR
@@ -101,7 +96,6 @@ class Stone(GameObject):
 
     def draw(self):
         """Отрисовка объекта."""
-
         for i in self.pos:
             rect = pygame.Rect(i, (GRID_SIZE, GRID_SIZE))
             pygame.draw.rect(screen, self.body_color, rect)
@@ -113,21 +107,18 @@ class Apple(GameObject):
 
     def __init__(self) -> None:
         """Инициализация, добавление цвета и позиции."""
-
         super().__init__()
         self.body_color = APPLE_COLOR
         self.randomize_position()
 
     def draw(self):
         """Отрисовка объекта."""
-
         rect = pygame.Rect(self.position, (GRID_SIZE, GRID_SIZE))
         pygame.draw.rect(screen, self.body_color, rect)
         pygame.draw.rect(screen, BORDER_COLOR, rect, 1)
 
     def randomize_position(self):
         """Метод отвечает за случайные координаты яблока на поле."""
-
         self.position = ((randint(0, 31) * 20), (randint(0, 23) * 20))
 
 
@@ -136,7 +127,6 @@ class Snake(GameObject):
 
     def __init__(self) -> None:
         """Инициализация, добавление цвета, направления, следующего"""
-
         super().__init__()
         self.body_color = SNAKE_COLOR
         self.direction = RIGHT
@@ -165,20 +155,17 @@ class Snake(GameObject):
 
     def update_direction(self):
         """Обновление направления на новое."""
-
         if self.next_direction:
             self.direction = self.next_direction
             self.next_direction = None
 
     def get_head_position(self):
         """Возвращает позицию головы."""
-
         self.position = self.positions[0]
 
     def move(self):
         """Реализация движения при помощи проверки координат, направления
         с учетом сетки."""
-
         self.get_head_position()
 
         if self.next_direction:
@@ -210,18 +197,8 @@ class Snake(GameObject):
         if self.length == len(self.position) - 1:
             self.last = self.positions.pop(-1)
 
-    def direction_on(self):
-        if (self.direction == RIGHT
-                or self.direction == DOWN):
-            grid = GRID_SIZE
-        elif (self.direction == LEFT
-                or self.direction == UP):
-            grid = -GRID_SIZE
-        return grid
-
     def reset(self):
         """Сброс к началу после проигрыша."""
-
         self.length = 1
         self.positions = [((SCREEN_WIDTH // 2), (SCREEN_HEIGHT // 2))]
         self.direction = choice([RIGHT, LEFT, UP, DOWN])
@@ -229,7 +206,6 @@ class Snake(GameObject):
     def move_right(self):
         """Описывает метод появления головы псоле достижения границы."""
         """Право."""
-
         if (self.direction == RIGHT
                 and self.position[0] == 640
                 and self.position[0] % GRID_SIZE == 0):
@@ -238,7 +214,6 @@ class Snake(GameObject):
     def move_left(self):
         """Описывает метод появления головы псоле достижения границы."""
         """Лево."""
-
         if (self.direction == LEFT
                 and self.position[0] == 0
                 and self.position[0] % GRID_SIZE == 0):
@@ -247,7 +222,6 @@ class Snake(GameObject):
     def move_up(self):
         """Описывает метод появления головы псоле достижения границы."""
         """Верх."""
-
         if (self.direction == UP
                 and self.position[1] == 0
                 and self.position[1] % GRID_SIZE == 0):
@@ -256,7 +230,6 @@ class Snake(GameObject):
     def move_down(self):
         """Описывает метод появления головы псоле достижения границы."""
         """Низ."""
-
         if (self.direction == DOWN
                 and self.position[1] == 480
                 and self.position[1] % GRID_SIZE == 0):
@@ -266,7 +239,6 @@ class Snake(GameObject):
 # Функция обработки действий пользователя
 def handle_keys(game_object):
     """Функция обработки действий пользователя."""
-
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -284,7 +256,6 @@ def handle_keys(game_object):
 
 def main():
     """Реализация основной логики программы."""
-
     pygame.init()
     apple = Apple()
     snake = Snake()
