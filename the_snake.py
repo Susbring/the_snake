@@ -164,8 +164,7 @@ class Snake(GameObject):
         self.position = self.positions[0]
 
     def move(self):
-        """Реализация движения при помощи проверки координат, направления
-        с учетом сетки."""
+        """Реализация движения при помощи проверки координат, направления."""
         self.get_head_position()
 
         if self.next_direction:
