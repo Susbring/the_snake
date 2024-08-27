@@ -235,8 +235,7 @@ def main():
 
         if apple.position == snake.position:
             snake.length += 1
-            apple.position = apple.randomize_position()
-            if snake.positions.count(apple.position):
+            while snake.positions.count(apple.position):
                 apple.position = apple.randomize_position()
         elif (bad_food.position == snake.position
                 and len(snake.positions) != 1):
