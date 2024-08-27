@@ -83,7 +83,7 @@ class GameObject:
 class BadFood(GameObject):
     """Класс описывающий неправильную еду."""
 
-    def __init__(self, position=SCREEN_CENTER, body_color=None) -> None:
+    def __init__(self) -> None:
         """Инициализация: добавление цвета и позиции."""
         super().__init__(self.randomize_position(), BAD_COLOR)
 
@@ -95,9 +95,9 @@ class BadFood(GameObject):
 class Stone(GameObject):
     """Класс описывает препятствия на игровом поле."""
 
-    def __init__(self, position=SCREEN_CENTER, body_color=None) -> None:
+    def __init__(self) -> None:
         """Инициализация, добавление цвета и позиций."""
-        super().__init__(position, STONE_COLOR)
+        super().__init__(SCREEN_CENTER, STONE_COLOR)
         self.placement_of_stones()
 
     def placement_of_stones(self):
@@ -116,7 +116,7 @@ class Stone(GameObject):
 class Apple(GameObject):
     """Унаследованный класс, описывает яболоко и действия с ним."""
 
-    def __init__(self, position=SCREEN_CENTER, body_color=None) -> None:
+    def __init__(self) -> None:
         """Инициализация, добавление цвета и позиции."""
         super().__init__(self.randomize_position(), APPLE_COLOR)
 
@@ -128,7 +128,7 @@ class Apple(GameObject):
 class Snake(GameObject):
     """Унаследованный классб описывает змейку и ее поведение."""
 
-    def __init__(self, position=SCREEN_CENTER, body_color=None) -> None:
+    def __init__(self) -> None:
         super().__init__(SCREEN_CENTER, SNAKE_COLOR)
         """Инициализация, добавление цвета, направления, следующего"""
         self.reset()
