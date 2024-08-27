@@ -240,7 +240,8 @@ def main():
         elif (bad_food.position == snake.position
                 and len(snake.positions) != 1):
             snake.length -= 1
-            bad_food.position = bad_food.randomize_position()
+            while snake.positions.count(bad_food.position):
+                bad_food.position = bad_food.randomize_position()
         elif (snake.positions[2:].count(snake.position)
                 or stone.positions.count(snake.position)
                 or (bad_food.position == snake.position
