@@ -233,14 +233,20 @@ def main():
         handle_keys(snake)
         snake.move()
 
+        occupied_positions = []
+        occupied_positions += stone.positions
+        occupied_positions += snake.positions
+
         if apple.position == snake.position:
             snake.length += 1
-            while snake.positions.count(apple.position):
+            occupied_positions.append(bad_food.position)
+            while occupied_positions.count(apple.position):
                 apple.position = apple.randomize_position()
         elif (bad_food.position == snake.position
                 and len(snake.positions) != 1):
             snake.length -= 1
-            while snake.positions.count(bad_food.position):
+            occupied_positions.append(apple.position)
+            while occupied_positions.count(bad_food.position):
                 bad_food.position = bad_food.randomize_position()
         elif (snake.positions[2:].count(snake.position)
                 or stone.positions.count(snake.position)
