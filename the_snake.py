@@ -64,7 +64,6 @@ class GameObject:
 
     def draw(self):
         """Метод отрисовки объектов (пустой в GameObject)."""
-        self.draw_cell(self.position)
 
     def draw_cell(self, i):
         """Метод для однотипной отрисовки объектов"""
@@ -87,6 +86,10 @@ class BadFood(GameObject):
     def __init__(self, position=SCREEN_CENTER, body_color=None) -> None:
         """Инициализация: добавление цвета и позиции."""
         super().__init__(self.randomize_position(), BAD_COLOR)
+
+    def draw(self):
+        """Отрисовка объекта."""
+        self.draw_cell(self.position)
 
 
 class Stone(GameObject):
@@ -233,21 +236,16 @@ def main():
         if apple.position == snake.position:
             snake.length += 1
             apple.position = apple.randomize_position()
-        elif (bad_food.position == snake.position
-                and len(snake.positions) == 1):
-            snake.reset()
-            screen.fill(BOARD_BACKGROUND_COLOR)
+            if snake.positions.count(apple.position):
+                apple.position = apple.randomize_position()
         elif (bad_food.position == snake.position
                 and len(snake.positions) != 1):
             snake.length -= 1
             bad_food.position = bad_food.randomize_position()
-            screen.fill(BOARD_BACKGROUND_COLOR)
-
-        if (snake.positions[2:].count(snake.position)):
-            snake.reset()
-            screen.fill(BOARD_BACKGROUND_COLOR)
-
-        if stone.positions.count(snake.position):
+        elif (snake.positions[2:].count(snake.position)
+                or stone.positions.count(snake.position)
+                or (bad_food.position == snake.position
+                    and len(snake.positions) == 1)):
             snake.reset()
             screen.fill(BOARD_BACKGROUND_COLOR)
 
